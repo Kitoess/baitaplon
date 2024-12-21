@@ -57,7 +57,7 @@ CREATE TABLE `sanpham` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `price` int(11) NOT NULL,
-  `type` varchar(50) NOT NULL,
+  `type` int(11) NOT NULL,
   `img` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
