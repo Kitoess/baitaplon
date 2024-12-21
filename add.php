@@ -3,20 +3,30 @@ require ('connect.php');
 if(isset($_POST['add']))
 {
     $name = $_POST['name'];
-    $price = $_POST['price'];
+    $price = intval($_POST['price']);
     $type = $_POST['type'];
     $pname = $_FILES["img"]["name"];
     $upload_dir = 'images/';
     $upload_file= $upload_dir . basename($_FILES["img"]["name"]);
-    move_uploaded_file($_FILES["img"]["tmp_name"],$upload_file); 
-    $sql = "INSERT INTO `sanpham` (`name`,`price`,`type`,`img`)
-            VALUES ('$name','$price','$type','$upload_file')";
-    if($conn->query($sql)=== TRUE)
-    {
-        $message = "Thêm sản phẩm thành công";
-       echo "<script type='text/javascript'>alert('$message');</script>";
-    }
+    $imageFileType = strtolower(pathinfo($upload_file,PATHINFO_EXTENSION));
+    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) 
+{
+    $message = "Chỉ nhận tệp có định dạng JPG, JPEG, PNG";
+    echo "<script type='text/javascript'>alert('$message');</script>";
 }
+  else { 
+    move_uploaded_file($_FILES["img"]["tmp_name"], $upload_file); 
+    $sql = "INSERT INTO `sanpham` (`name`, `price`, `type`, `img`)
+            VALUES ('$name', '$price', '$type', '$upload_file')";
+    if($conn->query($sql) === TRUE )
+             {
+                 $message = "Thêm sản phẩm thành công";
+                 echo "<script type='text/javascript'>alert('$message');</script>";
+             }
+  }
+   
+}
+
 $sql1 = "SELECT * FROM sanpham";
 $result = $conn->query($sql1);
 ?>
