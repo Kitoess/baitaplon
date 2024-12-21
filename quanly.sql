@@ -34,7 +34,7 @@ CREATE TABLE `khachhang` (
   `fullname` varchar(50) NOT NULL,
   `address` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `number` int(11) NOT NULL
+  `number` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
