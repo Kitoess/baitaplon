@@ -4,12 +4,13 @@ if(isset($_POST['add']))
 {
     $name = $_POST['name'];
     $price = $_POST['price'];
+    $type = $_POST['type'];
     $pname = $_FILES["img"]["name"];
     $upload_dir = 'images/';
     $upload_file= $upload_dir . basename($_FILES["img"]["name"]);
     move_uploaded_file($_FILES["img"]["tmp_name"],$upload_file); 
-    $sql = "INSERT INTO `sanpham` (`name`,`price`,`img`)
-            VALUES ('$name','$price','$upload_file')";
+    $sql = "INSERT INTO `sanpham` (`name`,`price`,`type`,`img`)
+            VALUES ('$name','$price','$type','$upload_file')";
     if($conn->query($sql)=== TRUE)
     {
         $message = "Thêm sản phẩm thành công";
@@ -35,6 +36,15 @@ $result = $conn->query($sql1);
                     <label for="price">Giá: </label>
                     <input type="number" name="price" id="price">
 </div>
+                <div>
+                    <label for="">Thể loại:</label>
+                    <select id="type" name="type">
+                    <option value="0">PS5</option>
+                    <option value="1">PS4</option>
+                    <option value="2">Nintendo Switch</option>
+                    <option value="3">XBOX ONE</option>
+                    </select>
+                </div>
             <div>
                 <label for="img">Hình ảnh</label>
                 <input type="File" name="img" id="img">
