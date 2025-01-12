@@ -6,7 +6,6 @@ if(isset($_POST['add']))
     $price = intval($_POST['price']);
     $type = $_POST['type'];
     $quantity = $_POST['quantity'];
-    $info = $_POST['info'];
     $pname = $_FILES["img"]["name"];
     $upload_dir = 'images/';
     $upload_file= $upload_dir . basename($_FILES["img"]["name"]);
@@ -18,15 +17,14 @@ if(isset($_POST['add']))
 }
   else { 
     move_uploaded_file($_FILES["img"]["tmp_name"], $upload_file); 
-    $sql = "INSERT INTO `sanpham` (`name`, `price`, `type`,`quantity`, `img`, `info`)
-            VALUES ('$name', '$price', '$type', '$quantity', '$upload_file','$info')";
+    $sql = "INSERT INTO `sanpham` (`name`, `price`, `type`,`quantity`, `img`)
+            VALUES ('$name', '$price', '$type', '$quantity', '$upload_file')";
     if($conn->query($sql) === TRUE )
              {
                  $message = "Thêm sản phẩm thành công";
                  echo "<script type='text/javascript'>alert('$message');</script>";
              }
   }
-   
 }
 
 $sql1 = "SELECT * FROM sanpham";
@@ -35,7 +33,10 @@ $result = $conn->query($sql1);
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Nhập thông tin</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thêm Sản Phẩm</title>
+    <link rel="stylesheet" href="css/insert.css">
     </head>
     <body>
         <div>
@@ -47,7 +48,7 @@ $result = $conn->query($sql1);
                 <div>
                     <label for="price">Giá: </label>
                     <input type="number" name="price" id="price">
-</div>
+                </div>
                 <div>
                     <label for="">Thể loại:</label>
                     <select id="type" name="type">
@@ -66,7 +67,7 @@ $result = $conn->query($sql1);
                 <input type="File" name="img" id="img">
             </div>  
             <div>
-                <label for="info">Thông tin sản phẩm:</label>
+                <label for="img">Thông tin sản phẩm: </label>
                 <textarea name="info" id="info"></textarea>
             </div>
                 <input type="submit" name="add" value="Lưu">
